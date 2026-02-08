@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/Backend/prisma/migrations/20251207104807_init/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Backend/prisma/migrations/20251214170454_init/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Backend/prisma/migrations/20251215192147_add_class/migration.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Backend/prisma/migrations/20251215202629_add_relation_course_to_class/migration.sql" dialect="GenericSQL" />
+  </component>
+</project>
