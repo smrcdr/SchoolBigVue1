@@ -41,7 +41,7 @@ async function loadCourses(): Promise<void> {
   try {
     courses.value = await apiRequest<Course[]>('/courses')
   } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to load courses')
+    setError(error instanceof Error ? error.message : 'Не удалось загрузить курсы')
   } finally {
     isLoading.value = false
   }
@@ -62,10 +62,10 @@ async function createCourse(): Promise<void> {
     createForm.description = ''
     createForm.duration = 1
 
-    setSuccess('Course created')
+    setSuccess('Курс создан')
     await loadCourses()
   } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to create course')
+    setError(error instanceof Error ? error.message : 'Не удалось создать курс')
   }
 }
 
@@ -86,19 +86,19 @@ async function saveCourse(course: Course): Promise<void> {
       body: { parameter: 'duration', value: Number(course.duration) },
     })
 
-    setSuccess(`Course #${course.id} saved`)
+    setSuccess(`Курс #${course.id} сохранен`)
   } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to save course')
+    setError(error instanceof Error ? error.message : 'Не удалось сохранить курс')
   }
 }
 
 async function deleteCourse(id: number): Promise<void> {
   try {
     await apiRequest(`/courses/${id}`, { method: 'DELETE' })
-    setSuccess(`Course #${id} deleted`)
+    setSuccess(`Курс #${id} удален`)
     await loadCourses()
   } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to delete course')
+    setError(error instanceof Error ? error.message : 'Не удалось удалить курс')
   }
 }
 
@@ -116,39 +116,38 @@ onMounted(() => {
   <main class="page">
     <div class="container stack">
       <header class="toolbar">
-        <h1>Courses</h1>
-        <button @click="handleLogout">Logout</button>
+        <h1>Курсы</h1>
+        <button @click="handleLogout">Выйти</button>
       </header>
 
       <section class="card stack">
-        <h2>New course</h2>
+        <h2>Новый курс</h2>
         <form class="form-grid" @submit.prevent="createCourse">
-          <input v-model.trim="createForm.name" type="text" placeholder="Name" required />
+          <input v-model.trim="createForm.name" type="text" required />
           <input
             v-model.trim="createForm.description"
             type="text"
-            placeholder="Description"
             required
           />
           <input v-model.number="createForm.duration" type="number" min="1" required />
-          <button type="submit">Create</button>
+          <button type="submit">Создать</button>
         </form>
       </section>
 
       <p v-if="successText" class="message">{{ successText }}</p>
       <p v-if="errorText" class="error">{{ errorText }}</p>
 
-      <p v-if="isLoading" class="muted">Loading...</p>
+      <p v-if="isLoading" class="muted">Загрузка...</p>
 
       <div v-else class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Duration</th>
-              <th>Actions</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Длительность</th>
+              <th>Действия</th>
             </tr>
           </thead>
           <tbody>
@@ -159,13 +158,13 @@ onMounted(() => {
               <td><input v-model.number="course.duration" type="number" min="1" /></td>
               <td>
                 <div class="row">
-                  <button @click="saveCourse(course)">Save</button>
-                  <button @click="deleteCourse(course.id)">Delete</button>
+                  <button @click="saveCourse(course)">Сохранить</button>
+                  <button @click="deleteCourse(course.id)">Удалить</button>
                 </div>
               </td>
             </tr>
             <tr v-if="courses.length === 0">
-              <td colspan="5" class="muted">No courses</td>
+              <td colspan="5" class="muted">Курсов нет</td>
             </tr>
           </tbody>
         </table>

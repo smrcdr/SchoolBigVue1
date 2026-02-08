@@ -50,7 +50,7 @@ async function login(): Promise<void> {
 
     await router.replace(redirectPath)
   } catch (error) {
-    errorText.value = error instanceof Error ? error.message : 'Login error'
+    errorText.value = error instanceof Error ? error.message : 'Ошибка входа'
   } finally {
     isLoginLoading.value = false
   }
@@ -72,13 +72,13 @@ async function register(): Promise<void> {
       },
     })
 
-    successText.value = 'User created. Now login.'
+    successText.value = 'Пользователь создан. Теперь войдите.'
     loginForm.name = registerForm.name
     loginForm.pass = ''
     registerForm.pass = ''
     registerForm.invite = ''
   } catch (error) {
-    errorText.value = error instanceof Error ? error.message : 'Register error'
+    errorText.value = error instanceof Error ? error.message : 'Ошибка регистрации'
   } finally {
     isRegisterLoading.value = false
   }
@@ -89,44 +89,44 @@ async function register(): Promise<void> {
   <main class="page">
     <div class="auth-page stack">
       <section class="card stack">
-        <h1>Login</h1>
+        <h1>Вход</h1>
         <form class="stack" @submit.prevent="login">
           <label class="stack">
-            <span>Name</span>
+            <span>Имя</span>
             <input v-model.trim="loginForm.name" type="text" required />
           </label>
 
           <label class="stack">
-            <span>Password</span>
+            <span>Пароль</span>
             <input v-model="loginForm.pass" type="password" required />
           </label>
 
           <button :disabled="isLoginLoading" type="submit">
-            {{ isLoginLoading ? 'Loading...' : 'Login' }}
+            {{ isLoginLoading ? 'Загрузка...' : 'Войти' }}
           </button>
         </form>
       </section>
 
       <section class="card stack">
-        <h2>Register</h2>
+        <h2>Регистрация</h2>
         <form class="stack" @submit.prevent="register">
           <label class="stack">
-            <span>Name</span>
+            <span>Имя</span>
             <input v-model.trim="registerForm.name" type="text" required />
           </label>
 
           <label class="stack">
-            <span>Password</span>
+            <span>Пароль</span>
             <input v-model="registerForm.pass" type="password" required />
           </label>
 
           <label class="stack">
-            <span>Invite (optional)</span>
+            <span>Инвайт (необязательно)</span>
             <input v-model.trim="registerForm.invite" type="text" />
           </label>
 
           <button :disabled="isRegisterLoading" type="submit">
-            {{ isRegisterLoading ? 'Loading...' : 'Register' }}
+            {{ isRegisterLoading ? 'Загрузка...' : 'Зарегистрироваться' }}
           </button>
         </form>
       </section>
